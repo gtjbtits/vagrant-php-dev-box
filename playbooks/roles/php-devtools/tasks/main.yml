@@ -1,3 +1,23 @@
 ---
 - name: Download and install PHPUnit
   get_url: url=https://phar.phpunit.de/phpunit.phar dest=/usr/local/bin/phpunit mode=0755
+
+- name: Download and install XDebug
+  apt: name=php-xdebug state=present
+
+- name: Update php.ini (fpm) configuration
+  ini_file:
+    path: /etc/php/5.6/fpm/php.ini
+    section: XDebug
+    option: "{{item.option}}"
+    value: "{{item.value}}"
+    backup: no
+  with_items:
+    - { option: "xdebug.default_enable", value: "no" }
+    - { option: "xdebug.remote_enable", value: "no" }
+    - { option: "xdebug.remote_host", value: "0.0.0.0" }
+    - { option: "xdebug.remote_port", value: "9000" }
+    - { option: "xdebug.remote_handler", value: "dbgp" }
+    - { option: "xdebug.idekey", value: "ide-xdebug" }
+    - { option: "xdebug.remote_autostart", value: "0" }
+    - { option: "xdebug.remote_log", value: "/vagrant/logs/xdebug.log" }

@@ -5,6 +5,7 @@
     document_root: /vagrant
     www_user: vagrant
     www_group: vagrant
+    php_version: 5.6
   pre_tasks:
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=3600
@@ -12,8 +13,5 @@
     - base
     - nginx
     - mysql
-    - php
-    - php-devtools
     - php-fpm
-    - symfony-standard
-    - laravel-quickstart
+    - php-devtools

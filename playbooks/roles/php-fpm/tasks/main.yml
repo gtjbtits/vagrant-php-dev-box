@@ -1,3 +1,15 @@
 ---
-- name: Install php-fpm
-  apt: name=php{{ php_version }}-fpm state=present
+- apt_repository:
+    repo: ppa:ondrej/php
+- name: Install php-fpm with modules
+  apt: name={{item}} state=present
+  with_items:
+       - php{{php_version}}-cli
+       - php{{php_version}}-common
+       - php{{php_version}}-mysql
+       - php{{php_version}}-gd
+       - php{{php_version}}-fpm
+       - php{{php_version}}-cgi
+       - php-pear
+       - php{{php_version}}-mcrypt
+       - php{{php_version}}-mbstring
