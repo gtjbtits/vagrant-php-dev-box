@@ -1,3 +1,32 @@
 ---
 - name: Install MySQL
-  apt: name=mysql-server state=present
+  apt: name={{item}} state=present
+  with_items:
+    - mysql-server 
+    - mysql-client
+
+- name: Create a new database
+  mysql_db:
+    name: digital9_prod
+    collation: utf8_general_ci
+    state: present
+
+- mysql_user:
+    name: digital9_sql
+    host: '%'
+    password: I)@2CaQXn+Nq
+    priv: '*.*:ALL'
+    state: present
+
+- name: Import SQL dump
+  mysql_db:
+    state: import
+    name: digital9_prod
+    target: /vagrant/sql/20180504_digtal9_prod.sql
+
+- name: Change mysql configuration
+  template:
+    src=mysqld.cnf.j2
+    dest=/etc/mysql/mysql.conf.d/mysqld.cnf
+  notify:
+    - restart mysql
