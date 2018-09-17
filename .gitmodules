@@ -1,0 +1,3 @@
+[submodule "vendor/Search-Replace-DB"]
+	path = vendor/Search-Replace-DB
+	url = https://github.com/interconnectit/Search-Replace-DB.git

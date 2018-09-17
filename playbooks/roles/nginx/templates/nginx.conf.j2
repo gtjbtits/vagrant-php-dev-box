@@ -9,6 +9,10 @@ events {
 
 http {
 
+	upstream php {
+    	server 127.0.0.1:9000;
+	}
+
 	##
 	# Basic Settings
 	##

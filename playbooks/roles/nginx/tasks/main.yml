@@ -6,12 +6,21 @@
   template:
     src=nginx.conf.j2
     dest=/etc/nginx/nginx.conf
+
+- name: Remove default virtual host
+  file:
+    path=/etc/nginx/sites-enabled/default
+    state=absent
+
+- name: Copy site configuration
+  template:
+    src=cps.conf.j2
+    dest=/etc/nginx/sites-available/cps.conf
+
+- name: Create a symlink
+  file:
+    src=/etc/nginx/sites-available/cps.conf
+    dest=/etc/nginx/sites-enabled/cps.conf
+    state=link
   notify:
     - restart nginx
-    
-#- name: Remove default virtual host
-#  file:
-#    path=/etc/nginx/sites-enabled/default
-#    state=absent
-#  notify:
-#    - restart nginx

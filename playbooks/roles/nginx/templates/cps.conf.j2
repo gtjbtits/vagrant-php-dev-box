@@ -1,0 +1,30 @@
+server {
+
+        listen 80 default_server;
+
+        root /vagrant/public_html;
+
+        index index.php index.html index.htm index.nginx-debian.html;
+
+        server_name digital9dev;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+
+        location ~ \.php$ {
+                fastcgi_buffer_size 32k;
+                fastcgi_buffers 4 32k;
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass php;
+                fastcgi_index index.php;
+                fastcgi_param SCRIPT_FILENAME /vagrant/public_html$fastcgi_script_name;
+                fastcgi_param DOCUMENT_ROOT /vagrant/public_html;
+                fastcgi_intercept_errors on;
+                include fastcgi_params;
+                fastcgi_read_timeout 300;
+                fastcgi_hide_header X-Powered-By;
+        }
+
+}
