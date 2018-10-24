@@ -1,0 +1,10 @@
+---
+- name: run srdb script (.com)
+  shell: 'php /vagrant/vendor/Search-Replace-DB/srdb.cli.php -h 127.0.0.1 -u digital9_sql -p "I)@2CaQXn+Nq" -n digital9_prod -s "digitalsubstation.com" -r "localhost:30080"'
+  args:
+    chdir: '/vagrant/vendor/Search-Replace-DB'
+    
+- name: run srdb script (.ru)
+  shell: 'php /vagrant/vendor/Search-Replace-DB/srdb.cli.php -h 127.0.0.1 -u digital9_sql -p "I)@2CaQXn+Nq" -n digital9_prod -s "digitalsubstation.ru" -r "localhost:30080"'
+  args:
+    chdir: '/vagrant/vendor/Search-Replace-DB'

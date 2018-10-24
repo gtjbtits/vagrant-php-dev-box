@@ -24,8 +24,3 @@
     backup=yes
   notify:
     - restart php-fpm
-
-- name: Replace host name in the database
-  shell: "php /vagrant/vendor/Search-Replace-DB/srdb.cli.php -h 127.0.0.1 -u root -p '' -n digital9_prod -s 'http://digitalsubstation.com' -r 'http://localhost:30080'"
-  args:
-    chdir: /vagrant/vendor/Search-Replace-DB
