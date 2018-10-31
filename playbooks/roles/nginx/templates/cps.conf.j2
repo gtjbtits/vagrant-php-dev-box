@@ -6,9 +6,16 @@ server {
 
     root /vagrant/public_html;
 
-    index index.php index.html index.htm index.nginx-debian.html;
+    index index.php;
 
     server_name localhost;
+
+    if (!-e $request_filename) {
+        # Don't use `$uri` here, see https://github.com/yandex/gixy/issues/77
+        rewrite /wp-admin$ $scheme://$host$request_uri/ permanent;
+        rewrite ^(/[^/]+)?(/wp-.*) $2 last;
+        rewrite ^(/[^/]+)?(/.*\.php) $2 last;
+    }
 
     location / {
         try_files $uri $uri/ /index.php?$args;
@@ -28,5 +35,4 @@ server {
         fastcgi_read_timeout 300;
         fastcgi_hide_header X-Powered-By;
     }
-
 }

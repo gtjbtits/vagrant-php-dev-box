@@ -20,7 +20,7 @@
 - name: Create a symlink
   file:
     src=/etc/nginx/sites-available/cps.conf
-    dest=/etc/nginx/sites-enabled/cps.conf
+    dest=/etc/nginx/sites-enabled/cps
     state=link
   notify:
     - restart nginx
