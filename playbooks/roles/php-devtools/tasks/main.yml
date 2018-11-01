@@ -1,6 +1,6 @@
 ---
-- name: Download and install PHPUnit
-  get_url: url=https://phar.phpunit.de/phpunit.phar dest=/usr/local/bin/phpunit mode=0755
+# - name: Download and install PHPUnit
+#   get_url: url=https://phar.phpunit.de/phpunit.phar dest=/usr/local/bin/phpunit mode=0755
 
 - name: Download and install XDebug
   apt: name=php-xdebug state=present
@@ -13,9 +13,9 @@
     value: "{{item.value}}"
     backup: no
   with_items:
-    - { option: "xdebug.default_enable", value: "no" }
-    - { option: "xdebug.remote_enable", value: "no" }
-    - { option: "xdebug.remote_host", value: "0.0.0.0" }
+    - { option: "xdebug.default_enable", value: "on" }
+    - { option: "xdebug.remote_enable", value: "on" }
+    - { option: "xdebug.remote_host", value: "10.0.2.2" }
     - { option: "xdebug.remote_port", value: "9000" }
     - { option: "xdebug.remote_handler", value: "dbgp" }
     - { option: "xdebug.idekey", value: "ide-xdebug" }
